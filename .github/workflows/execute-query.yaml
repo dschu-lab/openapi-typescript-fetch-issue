@@ -1,0 +1,28 @@
+name: Execute Query
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  execute-query:
+    name: Build and execute query
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📥 Download deps
+        run: npm ci
+      
+      - name: 🏗️ Generate client
+        run: npm run generate
+      
+      - name: ⛳️ Execute query 
+        run: npm run execute

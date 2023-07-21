@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: My API
+  version: 1.0.0
+  description: My API
+servers:
+  - url: https://openapi-typescript-bug.free.mockoapp.net
+    description: Mock Server
+
+paths:
+  /hello{params}:
+    get:
+      tags:
+        - helloWorld
+      operationId: getHello
+      summary: Hello
+      description: Hello
+      parameters:
+        - in: path
+          name: params
+          required: true
+          schema:
+            type: object
+            properties:
+              start:
+                type: integer
+                minimum: 1
+              count:
+                type: integer
+                minimum: 1
+                maximum: 100
+          style: matrix
+          explode: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelloResponse'
+components:
+  schemas:
+    HelloResponse:
+      type: object
+      properties:
+        count: 
+          type: integer
+          format: int32
+          example: 10
+        start: 
+          type: integer
+          format: int32
+          example: 10
+        data: 
+          type: object
+          properties: 
+            hello-world: 
+              type: boolean
+
+
